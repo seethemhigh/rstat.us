@@ -7,7 +7,6 @@ require 'crypto'
 require 'bcrypt'
 
 class User
-  require 'digest/md5'
 
   include MongoMapper::Document
 
