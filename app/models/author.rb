@@ -250,10 +250,6 @@ class Author
     end
   end
 
-  def set_default_use_ssl
-    self.use_ssl = self.domain.start_with?("https")
-  end
-
   private
 
   # Return the gravatar url
@@ -261,6 +257,10 @@ class Author
   def gravatar_url
     email_digest = Digest::MD5.hexdigest email
     "https://#{GRAVATAR}/avatar/#{email_digest}?s=48&r=r&d=#{ENCODED_DEFAULT_AVATAR}"
+  end
+
+  def set_default_use_ssl
+    self.use_ssl = self.domain.start_with?("https")
   end
 
   def normalize_domain
