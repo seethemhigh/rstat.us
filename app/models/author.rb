@@ -238,10 +238,6 @@ class Author
     author
   end
 
-  def modify_twitter_image_url_domain
-    self.image_url.sub!(/a\d.twimg.com/, "twimg0-a.akamaihd.net") if self.image_url.present?
-  end
-
   def to_param
     username
   end
@@ -282,6 +278,10 @@ class Author
 
   def https_image_url
     self.image_url.sub!(/^http:/, 'https:') if self.image_url.present?
+  end
+
+  def modify_twitter_image_url_domain
+    self.image_url.sub!(/a\d.twimg.com/, "twimg0-a.akamaihd.net") if self.image_url.present?
   end
 
 end
