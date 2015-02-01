@@ -238,19 +238,6 @@ class Author
     author
   end
 
-  def normalize_domain
-    set_default_use_ssl if use_ssl.nil?
-
-    norm = self.domain
-    norm = norm.gsub(/^.*:\/\//, "")  # remove protocol
-    norm = norm.gsub(/^www./, "")     # remove www
-    norm = norm.gsub(/\/.*$/, "")     # remove trailing slash
-    norm = norm.gsub(/\?.*$/, "")     # remove query string
-    norm = norm.gsub(/#.*$/, "")      # remove anchors
-
-    self.domain = norm
-  end
-
   def https_image_url
     self.image_url.sub!(/^http:/, 'https:') if self.image_url.present?
   end
@@ -282,6 +269,19 @@ class Author
   def gravatar_url
     email_digest = Digest::MD5.hexdigest email
     "https://#{GRAVATAR}/avatar/#{email_digest}?s=48&r=r&d=#{ENCODED_DEFAULT_AVATAR}"
+  end
+
+  def normalize_domain
+    set_default_use_ssl if use_ssl.nil?
+
+    norm = self.domain
+    norm = norm.gsub(/^.*:\/\//, "")  # remove protocol
+    norm = norm.gsub(/^www./, "")     # remove www
+    norm = norm.gsub(/\/.*$/, "")     # remove trailing slash
+    norm = norm.gsub(/\?.*$/, "")     # remove query string
+    norm = norm.gsub(/#.*$/, "")      # remove anchors
+
+    self.domain = norm
   end
 
 end
